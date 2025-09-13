@@ -7,6 +7,43 @@ import { UserMapper } from '@/application/mappers/user.mapper';
 export class UserController {
   private userService = AuthDependencies.getUserService();
 
+  /**
+   * @swagger
+   * /api/user/profile:
+   *   get:
+   *     summary: Obtener perfil del usuario autenticado
+   *     tags: [Users]
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Perfil del usuario obtenido exitosamente
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   example: true
+   *                 message:
+   *                   type: string
+   *                   example: Perfil obtenido exitosamente
+   *                 data:
+   *                   $ref: '#/components/schemas/UserResponse'
+   *       401:
+   *         description: Usuario no autenticado
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   *       404:
+   *         description: Usuario no encontrado
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
   async getProfile(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -27,6 +64,34 @@ export class UserController {
     }
   }
 
+  /**
+   * @swagger
+   * /api/users:
+   *   get:
+   *     summary: Obtener lista de usuarios (solo administradores)
+   *     tags: [Users]
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Lista de usuarios obtenida exitosamente
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/UsersListResponse'
+   *       401:
+   *         description: Usuario no autenticado
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   *       403:
+   *         description: Acceso denegado - se requieren permisos de administrador
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Error'
+   */
   async getUsers(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       if (!req.user) {

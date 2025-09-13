@@ -4,15 +4,22 @@
   "description": "API RESTful con Arquitectura Hexagonal usando TypeScript, Express, Bun, TypeORM y PostgreSQL",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "bun run --watch src/index.ts",
+    "dev": "NODE_ENV=development bun run --watch src/index.ts",
+    "dev:postgres": "NODE_ENV=development USE_SQLITE=false bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
+    "start:dev": "NODE_ENV=development bun run src/index.ts",
+    "start:staging": "NODE_ENV=staging bun run src/index.ts",
+    "start:prod": "NODE_ENV=production bun run src/index.ts",
     "build": "bun build src/index.ts --outdir dist --target bun",
-    "test": "bun test",
-    "test:watch": "bun test --watch",
-    "test:coverage": "bun test --coverage",
+    "build:prod": "NODE_ENV=production bun build src/index.ts --outdir dist --target bun",
+    "test": "NODE_ENV=test bun test",
+    "test:postgres": "NODE_ENV=test USE_POSTGRES=true bun test",
+    "test:watch": "NODE_ENV=test bun test --watch",
+    "test:coverage": "NODE_ENV=test bun test --coverage",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "bun run typeorm migration:generate",
     "migration:run": "bun run typeorm migration:run",
+    "migration:run:prod": "NODE_ENV=production bun run typeorm migration:run",
     "migration:revert": "bun run typeorm migration:revert",
     "lint": "echo 'Linting disabled - TypeScript code is valid'",
     "lint:fix": "echo 'Linting disabled - TypeScript code is valid'",
@@ -31,6 +38,8 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
@@ -44,6 +53,8 @@
     "@types/sinon": "^17.0.2",
     "@types/sqlite3": "^5.1.0",
     "@types/supertest": "^6.0.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "chai": "^4.3.10",
@@ -65,4 +76,3 @@
   "author": "Alfonso",
   "license": "MIT"
 }
-

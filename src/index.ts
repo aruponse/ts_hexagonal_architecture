@@ -6,8 +6,10 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { AppDataSource } from '@/adapters/outbound/config/database.config';
+import swaggerUi from 'swagger-ui-express';
+import { AppDataSource, databaseConfig } from '@/adapters/outbound/config/database.config';
 import { appConfig } from '@/adapters/outbound/config/app.config';
+import { swaggerSpec } from '@/adapters/outbound/config/swagger.config';
 import authRouter from '@/adapters/inbound/http/routes/index.routes';
 import publicRouter from '@/adapters/inbound/http/routes/public.router';
 import { errorMiddleware } from '@/adapters/inbound/http/middlewares/error.middleware';
@@ -25,10 +27,33 @@ app.use(rateLimit(appConfig.rateLimit));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger documentation (solo en development y staging)
+if (appConfig.swagger.enabled) {
+  app.use(appConfig.swagger.path, swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Hexagonal Architecture API Documentation',
+  }));
+}
+
 // Routes
 app.use('/api', authRouter);
 app.use('/api/public', publicRouter);
 
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Health check del servidor
+ *     tags: [System]
+ *     responses:
+ *       200:
+ *         description: Servidor funcionando correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/HealthResponse'
+ */
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -67,8 +92,15 @@ async function startServer() {
     // Start server
     const server = app.listen(appConfig.port, () => {
       console.log(`🚀 Server running on port ${appConfig.port}`);
-      console.log(`📚 API Documentation: http://localhost:${appConfig.port}/api/public/welcome`);
       console.log(`🏥 Health Check: http://localhost:${appConfig.port}/health`);
+      console.log(`📚 API Documentation: http://localhost:${appConfig.port}/api/public/welcome`);
+      
+      if (appConfig.swagger.enabled) {
+        console.log(`📖 Swagger Documentation: http://localhost:${appConfig.port}${appConfig.swagger.path}`);
+      }
+      
+      console.log(`🌍 Environment: ${appConfig.nodeEnv}`);
+      console.log(`🗄️  Database: ${databaseConfig.type}`);
     });
 
     // Graceful shutdown
