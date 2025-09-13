@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'bun:test';
-import { User } from '../../src/modules/auth/domain/entities/user.entity';
-import { Role } from '../../src/modules/auth/domain/entities/role.entity';
+import { User } from '@/domain/models/user';
+import { Role } from '@/domain/models/role';
 
 describe('User Entity', () => {
   const mockRole = new Role(

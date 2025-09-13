@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
-import { AppDataSource } from '../../../config/database.config';
-import { RoleEntity } from '../entities/role.entity';
-import { Role } from '../../../../../domain/models/role';
-import { IRoleRepository } from '../../../../../domain/ports/outbound/role.repository.port';
+import { AppDataSource } from '@/adapters/outbound/config/database.config';
+import { RoleEntity } from '@/adapters/outbound/persistence/typeorm/entities/role.entity';
+import { Role } from '@/domain/models/role';
+import { IRoleRepository } from '@/domain/ports/outbound/role.repository.port';
 
 export class PostgresRoleRepository implements IRoleRepository {
   private roleRepository: Repository<RoleEntity>;

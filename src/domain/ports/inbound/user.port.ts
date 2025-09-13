@@ -1,4 +1,4 @@
-import { User } from '../../models/user';
+import { User } from '@/domain/models/user';
 
 // Puerto para casos de uso de usuario
 export interface IUserPort {

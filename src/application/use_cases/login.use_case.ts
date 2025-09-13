@@ -1,9 +1,9 @@
-import { User } from '../../domain/models/user';
-import { IUserRepository } from '../../domain/ports/outbound/user.repository.port';
-import { IPasswordService } from '../../domain/ports/outbound/password.service.port';
-import { ITokenService } from '../../domain/ports/outbound/token.service.port';
-import { LoginRequest, AuthResponse } from '../../domain/ports/inbound/auth.port';
-import { UserNotFoundException, InvalidCredentialsException, UserDeactivatedException } from '../../domain/exceptions/domain.exception';
+import { User } from '@/domain/models/user';
+import { IUserRepository } from '@/domain/ports/outbound/user.repository.port';
+import { IPasswordService } from '@/domain/ports/outbound/password.service.port';
+import { ITokenService } from '@/domain/ports/outbound/token.service.port';
+import { LoginRequest, AuthResponse } from '@/domain/ports/inbound/auth.port';
+import { UserNotFoundException, InvalidCredentialsException, UserDeactivatedException } from '@/domain/exceptions/domain.exception';
 
 export class LoginUseCase {
   constructor(

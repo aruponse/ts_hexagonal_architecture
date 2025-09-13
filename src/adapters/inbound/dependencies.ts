@@ -1,21 +1,21 @@
-import { AuthService } from '../../application/services/auth.service';
-import { UserService } from '../../application/services/user.service';
-import { SignupUseCase } from '../../application/use_cases/signup.use_case';
-import { LoginUseCase } from '../../application/use_cases/login.use_case';
-import { GetProfileUseCase } from '../../application/use_cases/get_profile.use_case';
-import { GetUsersUseCase } from '../../application/use_cases/get_users.use_case';
-import { IUserRepository } from '../../domain/ports/outbound/user.repository.port';
-import { IRoleRepository } from '../../domain/ports/outbound/role.repository.port';
-import { IPasswordService } from '../../domain/ports/outbound/password.service.port';
-import { ITokenService } from '../../domain/ports/outbound/token.service.port';
+import { AuthService } from '@/application/services/auth.service';
+import { UserService } from '@/application/services/user.service';
+import { SignupUseCase } from '@/application/use_cases/signup.use_case';
+import { LoginUseCase } from '@/application/use_cases/login.use_case';
+import { GetProfileUseCase } from '@/application/use_cases/get_profile.use_case';
+import { GetUsersUseCase } from '@/application/use_cases/get_users.use_case';
+import { IUserRepository } from '@/domain/ports/outbound/user.repository.port';
+import { IRoleRepository } from '@/domain/ports/outbound/role.repository.port';
+import { IPasswordService } from '@/domain/ports/outbound/password.service.port';
+import { ITokenService } from '@/domain/ports/outbound/token.service.port';
 
 // Implementaciones de repositorios
-import { PostgresUserRepository } from '../outbound/persistence/typeorm/repositories/postgres.user.repository';
-import { PostgresRoleRepository } from '../outbound/persistence/typeorm/repositories/postgres.role.repository';
+import { PostgresUserRepository } from '@/adapters/outbound/persistence/typeorm/repositories/postgres.user.repository';
+import { PostgresRoleRepository } from '@/adapters/outbound/persistence/typeorm/repositories/postgres.role.repository';
 
 // Implementaciones de servicios
-import { BcryptPasswordService } from '../outbound/security/bcrypt.password.service';
-import { JwtTokenService } from '../outbound/security/jwt.token.service';
+import { BcryptPasswordService } from '@/adapters/outbound/security/bcrypt.password.service';
+import { JwtTokenService } from '@/adapters/outbound/security/jwt.token.service';
 
 // Factories para crear las dependencias
 export class RepositoryFactory {
@@ -34,6 +34,7 @@ export class ServiceFactory {
   }
 
   static createTokenService(): ITokenService {
+    // Lazy loading para evitar problemas con variables de entorno
     return new JwtTokenService();
   }
 }

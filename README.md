@@ -86,7 +86,7 @@ cp env.example .env
 4. **Configurar base de datos**
 ```bash
 # Para desarrollo (SQLite)
-USE_SQLITE=true bun run src/shared/scripts/init-roles.ts
+# La base de datos se crea automáticamente con los roles por defecto
 
 # Para producción (PostgreSQL)
 # Configurar variables de entorno de PostgreSQL
@@ -168,14 +168,11 @@ curl -X GET http://localhost:3000/api/users \
 ## 🔧 Scripts Útiles
 
 ```bash
-# Inicializar roles por defecto
-bun run src/shared/scripts/init-roles.ts
-
-# Hacer usuario administrador
-bun run src/shared/scripts/make-admin.ts user@example.com
+# Los roles se crean automáticamente al iniciar la aplicación
+# Los usuarios se pueden crear a través de la API de signup
 
 # Verificar usuarios en base de datos
-bun run src/shared/scripts/check-users.ts
+# Usar la API GET /api/users para listar usuarios
 
 # Generar migración
 bun run migration:generate -n MigrationName

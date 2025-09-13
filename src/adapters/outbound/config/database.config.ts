@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { UserEntity } from '../persistence/typeorm/entities/user.entity';
-import { RoleEntity } from '../persistence/typeorm/entities/role.entity';
+import { UserEntity } from '@/adapters/outbound/persistence/typeorm/entities/user.entity';
+import { RoleEntity } from '@/adapters/outbound/persistence/typeorm/entities/role.entity';
 
 // Use SQLite for development if PostgreSQL is not available
 const isDevelopment = process.env.NODE_ENV === 'development';

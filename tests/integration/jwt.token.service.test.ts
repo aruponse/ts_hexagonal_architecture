@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { JwtTokenService } from '../../src/modules/auth/infrastructure/adapters/services/jwt.token.service';
+import { JwtTokenService } from '@/adapters/outbound/security/jwt.token.service';
 
 describe('JwtTokenService Integration', () => {
   let tokenService: JwtTokenService;
@@ -60,7 +60,7 @@ describe('JwtTokenService Integration', () => {
   it('should throw error for invalid token', () => {
     const invalidToken = 'invalid.token.here';
 
-    expect(() => tokenService.verify(invalidToken)).toThrow('Invalid token');
+    expect(() => tokenService.verify(invalidToken)).toThrow('invalid token');
   });
 
   it('should return null for malformed token', () => {

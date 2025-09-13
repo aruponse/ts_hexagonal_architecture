@@ -1,6 +1,6 @@
-import { User } from '../../domain/models/user';
-import { IUserRepository } from '../../domain/ports/outbound/user.repository.port';
-import { UserNotFoundException, UserDeactivatedException } from '../../domain/exceptions/domain.exception';
+import { User } from '@/domain/models/user';
+import { IUserRepository } from '@/domain/ports/outbound/user.repository.port';
+import { UserNotFoundException, UserDeactivatedException } from '@/domain/exceptions/domain.exception';
 
 export class GetProfileUseCase {
   constructor(private readonly userRepository: IUserRepository) {}

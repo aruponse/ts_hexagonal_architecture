@@ -1,10 +1,10 @@
-import { User } from '../../domain/models/user';
-import { Role } from '../../domain/models/role';
-import { IUserRepository } from '../../domain/ports/outbound/user.repository.port';
-import { IRoleRepository } from '../../domain/ports/outbound/role.repository.port';
-import { IPasswordService } from '../../domain/ports/outbound/password.service.port';
-import { SignupRequest } from '../../domain/ports/inbound/auth.port';
-import { UserAlreadyExistsException, RoleNotFoundException } from '../../domain/exceptions/domain.exception';
+import { User } from '@/domain/models/user';
+import { Role } from '@/domain/models/role';
+import { IUserRepository } from '@/domain/ports/outbound/user.repository.port';
+import { IRoleRepository } from '@/domain/ports/outbound/role.repository.port';
+import { IPasswordService } from '@/domain/ports/outbound/password.service.port';
+import { SignupRequest } from '@/domain/ports/inbound/auth.port';
+import { UserAlreadyExistsException, RoleNotFoundException } from '@/domain/exceptions/domain.exception';
 
 export class SignupUseCase {
   constructor(

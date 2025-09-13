@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { IPasswordService } from '../../../domain/ports/outbound/password.service.port';
+import { IPasswordService } from '@/domain/ports/outbound/password.service.port';
 
 export class BcryptPasswordService implements IPasswordService {
   async hash(password: string): Promise<string> {

@@ -1,5 +1,5 @@
-import { User } from './user';
-import { AuthTokenPayload, AuthResponse } from '../ports/inbound/auth.port';
+import { User } from '@/domain/models/user';
+import { AuthTokenPayload, AuthResponse } from '@/domain/ports/inbound/auth.port';
 
 export class Auth {
   static validateCredentials(email: string, password: string): boolean {

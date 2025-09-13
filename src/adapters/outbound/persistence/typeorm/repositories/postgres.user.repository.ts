@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
-import { AppDataSource } from '../../../config/database.config';
-import { UserEntity } from '../entities/user.entity';
-import { RoleEntity } from '../entities/role.entity';
-import { User } from '../../../../../domain/models/user';
-import { Role } from '../../../../../domain/models/role';
-import { IUserRepository } from '../../../../../domain/ports/outbound/user.repository.port';
+import { AppDataSource } from '@/adapters/outbound/config/database.config';
+import { UserEntity } from '@/adapters/outbound/persistence/typeorm/entities/user.entity';
+import { RoleEntity } from '@/adapters/outbound/persistence/typeorm/entities/role.entity';
+import { User } from '@/domain/models/user';
+import { Role } from '@/domain/models/role';
+import { IUserRepository } from '@/domain/ports/outbound/user.repository.port';
 
 export class PostgresUserRepository implements IUserRepository {
   private userRepository: Repository<UserEntity>;

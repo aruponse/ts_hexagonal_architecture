@@ -1,17 +1,16 @@
+// Load environment variables first
+import '@/config/env';
+
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
-import { AppDataSource } from './adapters/outbound/config/database.config';
-import { appConfig } from './adapters/outbound/config/app.config';
-import authRouter from './adapters/inbound/http/routes/index.routes';
-import publicRouter from './adapters/inbound/http/routes/public.router';
-import { errorMiddleware } from './adapters/inbound/http/middlewares/error.middleware';
-
-// Load environment variables
-dotenv.config({ path: './env.local' });
+import { AppDataSource } from '@/adapters/outbound/config/database.config';
+import { appConfig } from '@/adapters/outbound/config/app.config';
+import authRouter from '@/adapters/inbound/http/routes/index.routes';
+import publicRouter from '@/adapters/inbound/http/routes/public.router';
+import { errorMiddleware } from '@/adapters/inbound/http/middlewares/error.middleware';
 
 const app = express();
 

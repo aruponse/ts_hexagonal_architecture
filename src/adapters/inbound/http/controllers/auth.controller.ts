@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { AuthDependencies } from '../../dependencies';
-import { SignupRequestDto } from '../../../../application/dto/signup.request.dto';
-import { LoginRequestDto } from '../../../../application/dto/login.request.dto';
-import { AuthResponseDto } from '../../../../application/dto/auth.response.dto';
-import { UserResponseDto } from '../../../../application/dto/user.response.dto';
-import { UserMapper } from '../../../../application/mappers/user.mapper';
+import { AuthDependencies } from '@/adapters/inbound/dependencies';
+import { SignupRequestDto } from '@/application/dto/signup.request.dto';
+import { LoginRequestDto } from '@/application/dto/login.request.dto';
+import { AuthResponseDto } from '@/application/dto/auth.response.dto';
+import { UserResponseDto } from '@/application/dto/user.response.dto';
+import { UserMapper } from '@/application/mappers/user.mapper';
 
 export class AuthController {
   private authService = AuthDependencies.getAuthService();

@@ -1,8 +1,8 @@
 import { Response } from 'express';
-import { AuthDependencies } from '../../dependencies';
-import { PublicUserResponseDto } from '../../../../application/dto/user.response.dto';
-import { AuthenticatedRequest } from '../middlewares/auth.middleware';
-import { UserMapper } from '../../../../application/mappers/user.mapper';
+import { AuthDependencies } from '@/adapters/inbound/dependencies';
+import { PublicUserResponseDto } from '@/application/dto/user.response.dto';
+import { AuthenticatedRequest } from '@/adapters/inbound/http/middlewares/auth.middleware';
+import { UserMapper } from '@/application/mappers/user.mapper';
 
 export class UserController {
   private userService = AuthDependencies.getUserService();

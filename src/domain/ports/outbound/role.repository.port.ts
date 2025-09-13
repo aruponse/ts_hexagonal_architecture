@@ -1,4 +1,4 @@
-import { Role } from '../../models/role';
+import { Role } from '@/domain/models/role';
 
 export interface IRoleRepository {
   save(role: Role): Promise<Role>;

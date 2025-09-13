@@ -1,8 +1,8 @@
-import { IAuthPort } from '../../domain/ports/inbound/auth.port';
-import { SignupUseCase } from '../use_cases/signup.use_case';
-import { LoginUseCase } from '../use_cases/login.use_case';
-import { User } from '../../domain/models/user';
-import { SignupRequest, LoginRequest, AuthResponse } from '../../domain/ports/inbound/auth.port';
+import { IAuthPort } from '@/domain/ports/inbound/auth.port';
+import { SignupUseCase } from '@/application/use_cases/signup.use_case';
+import { LoginUseCase } from '@/application/use_cases/login.use_case';
+import { User } from '@/domain/models/user';
+import { SignupRequest, LoginRequest, AuthResponse } from '@/domain/ports/inbound/auth.port';
 
 export class AuthService implements IAuthPort {
   constructor(

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { WelcomeController } from '../controllers/welcome.controller';
+import { WelcomeController } from '@/adapters/inbound/http/controllers/welcome.controller';
 
 const router = Router();
 const welcomeController = new WelcomeController();

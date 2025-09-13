@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { WelcomeService } from '../../../../application/services/welcome.service';
+import { WelcomeService } from '@/application/services/welcome.service';
 
 export class WelcomeController {
   private welcomeService = new WelcomeService();

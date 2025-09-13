@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { DomainException } from '../../../../domain/exceptions/domain.exception';
-import { ValidationException } from '../../../../domain/exceptions/validation.exception';
+import { DomainException } from '@/domain/exceptions/domain.exception';
+import { ValidationException } from '@/domain/exceptions/validation.exception';
 
 export interface ErrorResponse {
   error: string;

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { BcryptPasswordService } from '../../src/modules/auth/infrastructure/adapters/services/bcrypt.password.service';
+import { BcryptPasswordService } from '@/adapters/outbound/security/bcrypt.password.service';
 
 describe('BcryptPasswordService Integration', () => {
   let passwordService: BcryptPasswordService;

@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { ITokenService } from '../../../domain/ports/outbound/token.service.port';
+import { ITokenService } from '@/domain/ports/outbound/token.service.port';
 
 export class JwtTokenService implements ITokenService {
   private readonly secret: string;

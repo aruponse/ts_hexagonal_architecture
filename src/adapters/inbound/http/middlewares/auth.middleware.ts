@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { AuthTokenPayload } from '../../../../domain/ports/inbound/auth.port';
+import { AuthTokenPayload } from '@/domain/ports/inbound/auth.port';
 
 export interface AuthenticatedRequest extends Request {
   user?: AuthTokenPayload;

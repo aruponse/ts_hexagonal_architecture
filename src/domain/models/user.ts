@@ -1,4 +1,4 @@
-import { Role } from './role';
+import { Role } from '@/domain/models/role';
 
 export class User {
   constructor(

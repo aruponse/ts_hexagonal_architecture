@@ -1,7 +1,7 @@
-import { IUserPort } from '../../domain/ports/inbound/user.port';
-import { GetProfileUseCase } from '../use_cases/get_profile.use_case';
-import { GetUsersUseCase } from '../use_cases/get_users.use_case';
-import { User } from '../../domain/models/user';
+import { IUserPort } from '@/domain/ports/inbound/user.port';
+import { GetProfileUseCase } from '@/application/use_cases/get_profile.use_case';
+import { GetUsersUseCase } from '@/application/use_cases/get_users.use_case';
+import { User } from '@/domain/models/user';
 
 export class UserService implements IUserPort {
   constructor(
