@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { UserEntity } from '@/adapters/outbound/persistence/typeorm/entities/user.entity';
+import { UserEntity } from './user.entity';
 
 @Entity('roles')
 export class RoleEntity {
