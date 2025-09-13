@@ -1,0 +1,5 @@
+---
+description: Use always bun when possible if not available use yarn instead.
+globs: 
+alwaysApply: true
+---

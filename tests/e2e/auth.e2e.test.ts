@@ -1,62 +1,18 @@
 import { describe, it, expect, beforeAll, afterAll } from 'bun:test';
 import request from 'supertest';
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
 import { AppDataSource } from '../../src/shared/config/database.config';
 import { RoleEntity } from '../../src/modules/auth/infrastructure/adapters/persistence/entities/role.entity';
-import authRouter from '../../src/modules/auth/infrastructure/adapters/http/routes/router';
-import publicRouter from '../../src/modules/auth/infrastructure/adapters/http/routes/public.router';
 
-// Create test app without database initialization
-const createTestApp = () => {
-  const app = express();
+// Mock the app for testing
+const createTestApp = async () => {
+  // Set test environment
+  process.env.NODE_ENV = 'test';
+  process.env.USE_SQLITE = 'true';
+  process.env.JWT_SECRET = 'test-secret-key';
+  process.env.JWT_EXPIRES_IN = '1h';
 
-  // Security middleware
-  app.use(helmet());
-  app.use(cors({ origin: '*', credentials: true }));
-
-  // Rate limiting
-  app.use(rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-  }));
-
-  // Body parsing middleware
-  app.use(express.json({ limit: '10mb' }));
-  app.use(express.urlencoded({ extended: true }));
-
-  // Routes
-  app.use('/api', authRouter);
-  app.use('/api/public', publicRouter);
-
-  // Health check endpoint
-  app.get('/health', (req, res) => {
-    res.status(200).json({
-      status: 'OK',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-    });
-  });
-
-  // Error handling middleware
-  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error('Error:', err);
-    res.status(500).json({
-      error: 'Internal server error',
-      message: 'Something went wrong',
-    });
-  });
-
-  // 404 handler
-  app.use('*', (req, res) => {
-    res.status(404).json({
-      error: 'Not found',
-      message: `Route ${req.originalUrl} not found`,
-    });
-  });
-
+  // Import app after setting environment
+  const { default: app } = await import('../../src/index');
   return app;
 };
 
@@ -66,39 +22,22 @@ describe('Auth E2E Tests', () => {
   let userToken: string;
 
   beforeAll(async () => {
-    // Set test environment
-    process.env.NODE_ENV = 'test';
-    process.env.USE_SQLITE = 'true';
-    process.env.JWT_SECRET = 'test-secret-key';
-    process.env.JWT_EXPIRES_IN = '1h';
-    
-    app = createTestApp();
+    app = await createTestApp();
     
     // Initialize test database
-    if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize();
-    }
+    await AppDataSource.initialize();
     
-    // Create test roles if they don't exist
+    // Create test roles
     const roleRepository = AppDataSource.getRepository(RoleEntity);
-    
-    let adminRole = await roleRepository.findOne({ where: { name: 'admin' } });
-    if (!adminRole) {
-      adminRole = roleRepository.create({
-        name: 'admin',
-        description: 'Administrator role',
-      });
-      await roleRepository.save(adminRole);
-    }
-    
-    let userRole = await roleRepository.findOne({ where: { name: 'user' } });
-    if (!userRole) {
-      userRole = roleRepository.create({
-        name: 'user',
-        description: 'User role',
-      });
-      await roleRepository.save(userRole);
-    }
+    const adminRole = roleRepository.create({
+      name: 'admin',
+      description: 'Administrator role',
+    });
+    const userRole = roleRepository.create({
+      name: 'user',
+      description: 'User role',
+    });
+    await roleRepository.save([adminRole, userRole]);
   });
 
   afterAll(async () => {
@@ -215,8 +154,7 @@ describe('Auth E2E Tests', () => {
         .send(adminData);
 
       // Make user admin
-      const { UserEntity } = await import('../../src/modules/auth/infrastructure/adapters/persistence/entities/user.entity');
-      const userRepository = AppDataSource.getRepository(UserEntity);
+      const userRepository = AppDataSource.getRepository('UserEntity');
       const roleRepository = AppDataSource.getRepository(RoleEntity);
       const adminRole = await roleRepository.findOne({ where: { name: 'admin' } });
       const user = await userRepository.findOne({ where: { email: 'admin@example.com' } });

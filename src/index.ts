@@ -4,10 +4,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { AppDataSource } from './shared/config/database.config';
-import { appConfig } from './shared/config/app.config';
-import authRouter from './modules/auth/infrastructure/adapters/http/routes/router';
-import publicRouter from './modules/auth/infrastructure/adapters/http/routes/public.router';
+import { AppDataSource } from './adapters/outbound/config/database.config';
+import { appConfig } from './adapters/outbound/config/app.config';
+import authRouter from './adapters/inbound/http/routes/index.routes';
+import publicRouter from './adapters/inbound/http/routes/public.router';
+import { errorMiddleware } from './adapters/inbound/http/middlewares/error.middleware';
 
 // Load environment variables
 dotenv.config({ path: './env.local' });
@@ -38,22 +39,18 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Error handling middleware
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('Error:', err);
-  res.status(500).json({
-    error: 'Internal server error',
-    message: appConfig.nodeEnv === 'development' ? err.message : 'Something went wrong',
-  });
-});
-
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
     error: 'Not found',
     message: `Route ${req.originalUrl} not found`,
+    timestamp: new Date().toISOString(),
+    path: req.originalUrl,
   });
 });
+
+// Error handling middleware (must be last)
+app.use(errorMiddleware);
 
 // Initialize database and start server
 async function startServer() {
@@ -93,7 +90,11 @@ async function startServer() {
     });
 
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('❌ Failed to start server:', error);
+    } else {
+      console.error('❌ Failed to start server');
+    }
     process.exit(1);
   }
 }
