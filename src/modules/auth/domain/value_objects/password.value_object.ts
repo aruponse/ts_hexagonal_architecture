@@ -36,3 +36,4 @@ export class Password {
     return this.value === other.value;
   }
 }
+

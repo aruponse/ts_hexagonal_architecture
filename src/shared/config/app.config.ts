@@ -10,3 +10,4 @@ export const appConfig = {
     max: 100, // limit each IP to 100 requests per windowMs
   },
 };
+

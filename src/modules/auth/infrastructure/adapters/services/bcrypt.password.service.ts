@@ -12,3 +12,4 @@ export class BcryptPasswordService implements IPasswordService {
     return await bcrypt.compare(password, hashedPassword);
   }
 }
+

@@ -20,3 +20,4 @@ export class SignupRequestDto {
   @IsNotEmpty({ message: 'Last name is required' })
   lastName: string;
 }
+

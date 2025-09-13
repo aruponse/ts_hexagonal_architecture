@@ -8,3 +8,4 @@ const publicController = new PublicController();
 router.get('/welcome', publicController.welcome.bind(publicController));
 
 export default router;
+

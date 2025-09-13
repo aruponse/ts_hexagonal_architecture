@@ -3,3 +3,4 @@ export interface ITokenService {
   verify(token: string): any;
   decode(token: string): any;
 }
+

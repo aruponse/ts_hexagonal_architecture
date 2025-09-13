@@ -26,3 +26,4 @@ export class Role {
     return this.name === 'user';
   }
 }
+

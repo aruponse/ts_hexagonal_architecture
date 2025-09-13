@@ -9,3 +9,4 @@ export interface IUserRepository {
   delete(id: string): Promise<void>;
   existsByEmail(email: string): Promise<boolean>;
 }
+

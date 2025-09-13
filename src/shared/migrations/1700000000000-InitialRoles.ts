@@ -16,3 +16,4 @@ export class InitialRoles1700000000000 implements MigrationInterface {
     await queryRunner.query(`DELETE FROM roles WHERE name IN ('admin', 'user')`);
   }
 }
+

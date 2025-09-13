@@ -55,3 +55,4 @@ export class PublicUserResponseDto {
     this.updatedAt = user.updatedAt;
   }
 }
+

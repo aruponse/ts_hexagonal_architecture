@@ -24,3 +24,4 @@ export class GetUsersUseCase {
     return await this.userRepository.findAll();
   }
 }
+

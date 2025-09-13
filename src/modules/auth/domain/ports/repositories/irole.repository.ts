@@ -8,3 +8,4 @@ export interface IRoleRepository {
   update(role: Role): Promise<Role>;
   delete(id: string): Promise<void>;
 }
+

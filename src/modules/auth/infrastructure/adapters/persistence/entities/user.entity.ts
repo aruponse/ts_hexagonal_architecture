@@ -34,3 +34,4 @@ export class UserEntity {
   @Column()
   roleId: string;
 }
+
