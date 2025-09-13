@@ -12,6 +12,14 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.development
+.env.test
+.env.production
+.env.staging
+env.staging
+env.production
+env.development
+env.test
 
 # Logs
 logs/
@@ -87,3 +95,4 @@ jspm_packages/
 .DS_Store
 Thumbs.db
 *.sqlite
+env.local
