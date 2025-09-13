@@ -145,7 +145,7 @@ Este proyecto implementa una arquitectura hexagonal (también conocida como "Por
 
 1. **Clonar el repositorio**
 ```bash
-git clone <repository-url>
+git clone git@github.com:aruponse/ts_hexagonal_architecture.git
 cd ts_hexagonal_architecture
 ```
 
@@ -174,7 +174,7 @@ cp env.example env.local
 ### Opción 1: Desarrollo Local
 ```bash
 # 1. Clonar e instalar
-git clone <repository-url>
+git clone git@github.com:aruponse/ts_hexagonal_architecture.git
 cd ts_hexagonal_architecture
 bun install
 
